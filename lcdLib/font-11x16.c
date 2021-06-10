@@ -1,6 +1,6 @@
 #include "lcdutils.h"
 
-const unsigned int font_11x16[95][11] = { 		// offset 0x20
+const unsigned int font_11x16[95][11] = { 		// offset 0x20 95 11
   0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
   0x0000,
   0x0000, 		//

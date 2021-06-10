@@ -6,7 +6,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include "ui_utils.h"
+#include "buzzer.h"
+#include "assemblyCode.h"
 
+int highScoreNum = 0;
+int highScoreTemp = 0;
 /** Main function. Makes everything run together.*/
 void main()
 {
@@ -14,10 +18,10 @@ void main()
   configureClocks();
   lcd_init();
   p2sw_init(15);
-  or_sr(0x8);			/* GIE (enable interrupts) */
-  //srand(time(0));
+  or_sr(0x8); /* GIE (enable interrupts) */
   u_char width = screenWidth, height = screenHeight;
   main_menu();
+  
   
   int program_counter = 0;
   while (1) {
@@ -37,38 +41,42 @@ void main()
       if (str[i] == '1'){
 	clearScreen(COLOR_RED);
 	if (current_color != "RED"){
-	  if(game_over())
-	    goto START;
+	  highScoreNum = game_over(highScoreTemp, highScoreNum);
+	  goto START;
 	}
 	current_color = next_color;
-	drawString5x7(30,20, next_color, COLOR_BLACK, COLOR_RED);
+	highScoreTemp++;
+	drawString11x16(width/4,height/4, next_color, COLOR_BLACK, COLOR_RED);
       }
       else if (str[i] == '2'){
 	clearScreen(COLOR_PURPLE);
 	if (current_color != "PURPLE"){
-	  if(game_over())
-	    goto START;
+	  highScoreNum = game_over(highScoreTemp, highScoreNum);
+	  goto START;
 	}
 	current_color = next_color;
-	drawString5x7(30,20, next_color, COLOR_BLACK, COLOR_PURPLE);
+	highScoreTemp++;
+	drawString11x16(width/4,height/4, next_color, COLOR_BLACK, COLOR_PURPLE);
       }
       else if (str[i] == '3'){
 	clearScreen(COLOR_YELLOW);
 	if (current_color != "YELLOW"){
-	  if(game_over())
-	    goto START;
-	}
+	  highScoreNum = game_over(highScoreTemp, highScoreNum);
+	  goto START;
+	} 
 	current_color = next_color;
-	drawString5x7(30,20, next_color, COLOR_BLACK, COLOR_YELLOW);
+	highScoreTemp++;
+	drawString11x16(width/4,height/4, next_color, COLOR_BLACK, COLOR_YELLOW);
       }
       else if (str[i] == '4'){
 	clearScreen(COLOR_GREEN);
 	if (current_color != "GREEN"){
-	  if(game_over())
-	    goto START;
+	  highScoreNum = game_over(highScoreTemp, highScoreNum);
+	  goto START;
 	}
 	current_color = next_color;
-	drawString5x7(30,20, next_color, COLOR_BLACK, COLOR_GREEN);
+	highScoreTemp++;
+	drawString11x16(width/4,height/4, next_color, COLOR_BLACK, COLOR_GREEN);
       }
     }
   } 
